@@ -10,9 +10,13 @@
         <button style="width: 99%; height: 50px;" @click="openModal(location.lat, location.lng, city)">{{ city }}</button>
       </div>
       <button @click="goToPage2">Go to Page 2</button>
+      <button @click="goToPage3">Go to Page 3</button>
     </div>
     <div v-else-if="currentPage === 'Page2Vue'">
       <Page2Vue @back="goBackToApp" />
+    </div>
+    <div v-else-if="currentPage === 'PageTree'">
+    <PageTree @back="goBackToApp" />
     </div>
     <div v-if="showModal" class="modal-overlay">
       <ModalWindow :x="modalX" :y="modalY" :city="city" @close="closeModal" />
@@ -24,11 +28,13 @@
 import ModalWindow from './components/ModalWindow.vue';
 import locationData from './assets/users.json';
 import Page2Vue from './components/Page2.vue';
+import PageTree from './components/Page3.vue';
 
 export default {
   components: {
     ModalWindow,
     Page2Vue,
+    PageTree,
   },
   data() {
     return {
@@ -42,6 +48,9 @@ export default {
     };
   },
   methods: {
+    goToPage3(){
+      this.currentPage = 'PageTree'
+    },
     goToPage2() {
       this.currentPage = 'Page2Vue';
     },
