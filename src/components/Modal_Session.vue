@@ -8,7 +8,7 @@
       <p>AGENT CONNECT: {{ agent }}</p>
       <p>IP: {{ ip }}</p>
       <button @click="closeModal">Cancel</button>
-      <button>Delete</button>
+      <button @click="deletesession">Delete</button>
     </div>
   </div>
 </template>
@@ -16,6 +16,7 @@
 <script>
 export default {
   props: {
+    token: String,
     id: String,
     id_user: String,
     login_user: String,
@@ -27,6 +28,27 @@ export default {
   methods: {
     closeModal() {
       this.$emit('close-modal');
+    },
+    deletesession() {
+      const url = 'http://127.0.0.1:3000/api/v1/sessions/' + this.id + '/revoke';
+const options = {
+  method: 'POST',
+  headers: {
+    'accept': 'application/json',
+    'Authorization': 'Bearer ' + this.token
+  },
+};
+
+fetch(url, options)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+    this.$emit('close-modal');
+    this.$emit('revoke');
+  })
+  .catch((error) => {
+    console.error('Ошибка при выполнении POST-запроса:', error);
+  });
     },
   },
 };

@@ -29,6 +29,7 @@
         :name_user="modalData.user.name"
         :agent="modalData.agent"
         :ip="modalData.ip"
+        :token="token"
         @close-modal="closeModal"
       ></modal3>
     </div>
@@ -63,6 +64,7 @@
     name: 'PageTree',
     methods: {
       openModal(sessionData) {
+        
         this.showModal = true;
         this.modalData.id = sessionData.id;
         this.modalData.user.id = sessionData.user.id;
